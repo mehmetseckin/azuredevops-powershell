@@ -1,4 +1,4 @@
-. "$PSScriptRoot\Account\Public\Add-AzureDevOpsAccount.ps1";
+. "$PSScriptRoot\Public\Add-AzureDevOpsAccount.ps1";
 
 Set-Alias -Name Connect-AzureDevOpsAccount -Value Add-AzureDevOpsAccount;
 Set-Alias -Name Login-AzureDevOpsAccount -Value Add-AzureDevOpsAccount;
