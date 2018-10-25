@@ -1,0 +1,23 @@
+name: '0.1.$(rev:r)'
+
+trigger:
+  - master
+
+jobs:
+- job: 'build'
+  displayName: 'Build and Test'
+  pool:
+    vmImage: 'VS2017-Win2016'
+
+  steps:
+  - task: PowerShell@2
+    displayName: 'Build and test the module'
+    inputs:
+      targetType: 'filePath'
+      filePath: '.\Build\Start-Build.ps1'
+
+  - task: PublishTestResults@2
+    displayName: 'Publish test results'
+    inputs:
+      testResultsFormat: 'NUnit'
+      testResultsFiles: 'TestResults_PS*.xml'
