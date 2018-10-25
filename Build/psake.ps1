@@ -36,7 +36,7 @@ Task Test -Depends Init  {
 
     # Gather test results. Store them in a variable and file
     $CodeFiles = (Get-ChildItem $ENV:BHModulePath -Recurse -Include "*.psm1","*.ps1").FullName
-    $Script:TestResults = Invoke-Pester -Path $ProjectRoot\Tests -PassThru -CodeCoverage $CodeFiles -OutputFormat NUnitXml -OutputFile "$ProjectRoot\$TestFile"
+    $TestResults = Invoke-Pester -Path $ProjectRoot\Tests -PassThru -CodeCoverage $CodeFiles -OutputFormat NUnitXml -OutputFile "$ProjectRoot\$TestFile"
 
     # In Appveyor?  Upload our tests! #Abstract this into a function?
     If($ENV:BHBuildSystem -eq 'AppVeyor')
@@ -48,7 +48,7 @@ Task Test -Depends Init  {
 
     Remove-Item "$ProjectRoot\$TestFile" -Force -ErrorAction SilentlyContinue
     
-    $CoveragePercent = [math]::floor(100 - (($Script:TestResults.CodeCoverage.NumberOfCommandsMissed / $Script:TestResults.CodeCoverage.NumberOfCommandsAnalyzed) * 100))
+    $CoveragePercent = [math]::floor(100 - (($TestResults.CodeCoverage.NumberOfCommandsMissed / $TestResults.CodeCoverage.NumberOfCommandsAnalyzed) * 100))
     Update-CodeCoveragePercent -CodeCoverage $CoveragePercent
 
     if($TestResults.FailedCount -gt 0)
