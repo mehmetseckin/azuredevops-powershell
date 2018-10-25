@@ -8,10 +8,8 @@ jobs:
   displayName: 'Build and Test'
   pool:
     vmImage: 'win1803'
-
   workspace:
     clean: all
-
   steps:
   - checkout: self
     clean: true
