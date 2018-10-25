@@ -20,16 +20,16 @@ jobs:
     displayName: 'Build and test the module'
     inputs:
       targetType: 'filePath'
-      filePath: '.\Build\Start-Build.ps1'
+      filePath: './Build/Start-Build.ps1'
 
   - task: PublishTestResults@2
     displayName: 'Publish test results'
     inputs:
       testResultsFormat: 'NUnit'
-      testResultsFiles: '.\Build\Output\TestResults_PS*.xml'
+      testResultsFiles: '**/TestResults_PS*.xml'
 
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage results'
     inputs:
       codeCoverageTool: 'JaCoCo'
-      summaryFileLocation: '.\Build\Output\CodeCoverage_PS*.xml'
+      summaryFileLocation: '**/CodeCoverageReport_PS*.xml'
