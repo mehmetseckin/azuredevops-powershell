@@ -38,8 +38,8 @@ Task Test -Depends Init  {
     $CodeFiles = (Get-ChildItem $ENV:BHModulePath -Recurse -Include "*.psm1","*.ps1").FullName
     $TestResults = Invoke-Pester -Path $ProjectRoot\Tests -PassThru -CodeCoverage $CodeFiles -OutputFormat NUnitXml -OutputFile "$ProjectRoot\$TestFile"
 
+    # TODO: Generate code coverage report
     # $CoveragePercent = [math]::floor(100 - (($TestResults.CodeCoverage.NumberOfCommandsMissed / $TestResults.CodeCoverage.NumberOfCommandsAnalyzed) * 100))
-    # Update-CodeCoveragePercent -CodeCoverage $CoveragePercent
 
     if($TestResults.FailedCount -gt 0)
     {
