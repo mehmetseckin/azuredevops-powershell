@@ -15,7 +15,7 @@ jobs:
   steps:
   - checkout:
     clean: true
-    
+
   - task: PowerShell@2
     displayName: 'Build and test the module'
     inputs:
@@ -27,7 +27,7 @@ jobs:
     inputs:
       testResultsFormat: 'NUnit'
       testResultsFiles: '.\Build\Output\TestResults_PS*.xml'
-      
+
   - task: PublishCodeCoverageResults@2
     displayName: 'Publish code coverage results'
     inputs:
