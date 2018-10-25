@@ -13,7 +13,7 @@ jobs:
     clean: all
 
   steps:
-  - checkout:
+  - checkout: self
     clean: true
     
   - task: PowerShell@2
