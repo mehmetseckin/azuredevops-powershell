@@ -1,7 +1,7 @@
 $ModuleName = "Account";
-Import-Module "$PSScriptRoot\..\..\AzureDevOps\Account" -Force;
+Import-Module "$PSScriptRoot\..\..\AzureDevOps\$ModuleName" -Force;
 
-Describe 'Account submodule behaviour' {
+Describe "$ModuleName submodule behaviour" {
     $ModuleInfo = Get-Module -Name $ModuleName;
     
     It 'Exports a function named Add-AzureDevOpsAccount' {
