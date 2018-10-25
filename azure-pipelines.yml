@@ -10,9 +10,6 @@ jobs:
     vmImage: 'win1803'
 
   steps:
-  - checkout:
-    clean: true
-    
   - task: PowerShell@2
     displayName: 'Build and test the module'
     inputs:
