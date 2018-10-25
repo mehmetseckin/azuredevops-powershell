@@ -4,7 +4,7 @@ trigger:
   - master
 
 jobs:
-- job: 'build-and-test'
+- job: 'build'
   displayName: 'Build and Test'
   pool:
     vmImage: 'VS2017-Win2016'
