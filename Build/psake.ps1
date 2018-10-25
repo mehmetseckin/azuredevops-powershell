@@ -23,15 +23,22 @@ Task Test -Depends Init  {
 
     $Timestamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
     $PSVersion = $PSVersionTable.PSVersion.Major
-    $TestFile = "TestResults_PS$PSVersion`_$TimeStamp.xml"
+    $OutDir = "$ProjectRoot\Build\Output"
+    New-Item -Type Directory -Path $OutDir -Force -ErrorAction SilentlyContinue;
+    $TestResultsFile = "$OutDir\TestResults_PS$PSVersion`_$TimeStamp.xml"
+    $CodeCoverageFile = "$OutDir\CodeCoverageReport_PS$PSVersion`_$TimeStamp.xml"
 
     # Gather test results. Store them in a variable and file
     $CodeFiles = (Get-ChildItem $ENV:BHModulePath -Recurse -Include "*.psm1","*.ps1").FullName
-    $TestResults = Invoke-Pester -Path $ProjectRoot\Tests -PassThru -CodeCoverage $CodeFiles -OutputFormat NUnitXml -OutputFile "$ProjectRoot\$TestFile"
-
-    # TODO: Generate code coverage report (?)
-    # $CoveragePercent = [math]::floor(100 - (($TestResults.CodeCoverage.NumberOfCommandsMissed / $TestResults.CodeCoverage.NumberOfCommandsAnalyzed) * 100))
-
+    $TestResults = Invoke-Pester `
+        -Path "$ProjectRoot\Tests" `
+        -OutputFormat NUnitXml `
+        -OutputFile $TestResultsFile `
+        -CodeCoverage $CodeFiles `
+        -CodeCoverageOutputFile $CodeCoverageFile `
+        -CodeCoverageOutputFileFormat JaCoCo `
+        -PassThru;
+        
     if($TestResults.FailedCount -gt 0)
     {
         Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"

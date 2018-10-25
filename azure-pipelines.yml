@@ -26,4 +26,10 @@ jobs:
     displayName: 'Publish test results'
     inputs:
       testResultsFormat: 'NUnit'
-      testResultsFiles: 'TestResults_PS*.xml'
+      testResultsFiles: '.\Build\Output\TestResults_PS*.xml'
+      
+  - task: PublishCodeCoverageResults@2
+    displayName: 'Publish code coverage results'
+    inputs:
+      codeCoverageTool: 'JaCoCo'
+      summaryFileLocation: '.\Build\Output\CodeCoverage_PS*.xml'
