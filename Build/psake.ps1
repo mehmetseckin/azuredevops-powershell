@@ -20,7 +20,7 @@ Properties {
     . "$PSScriptRoot\Update-CodeCoveragePercent.ps1";
 }
 
-Task Default -Depends Test
+Task Default -Depends Build
 
 Task Init {
     $lines
@@ -64,12 +64,17 @@ Task Build -Depends Test {
     # Load the module, read the exported functions, update the psd1 FunctionsToExport
     Set-ModuleFunctions
 
-    # Bump the module version if we didn't already
+    # Sync the module version w/ AppVeyor
     Try
     {
-        $version = Get-MetaData -Path $env:BHPSModuleManifest -PropertyName ModuleVersion -ErrorAction Stop
-        $newVersion = [version]"$($version.Major).$($version.Minor).$($version.Build + 1)"
-        Update-Metadata -Path $env:BHPSModuleManifest -PropertyName ModuleVersion -Value $newVersion -ErrorAction stop
+        if($ENV:BHBuildSystem -eq 'AppVeyor')
+        {
+            $version = (Get-MetaData -Path $env:BHPSModuleManifest -PropertyName ModuleVersion -ErrorAction Stop)
+            if($version -ne $env:APPVEYOR_BUILD_VERSION) 
+            {
+                Update-Metadata -Path $env:BHPSModuleManifest -PropertyName ModuleVersion -Value $env:APPVEYOR_BUILD_VERSION -ErrorAction stop
+            }
+        }
     }
     Catch
     {
