@@ -1,5 +1,9 @@
 # AzureDevOps.PowerShell
 
+[![Build status](https://ci.appveyor.com/api/projects/status/30m115gw52ens456?svg=true)](https://ci.appveyor.com/project/seckin92/azuredevops-powershell)
+![Test Coverage](https://img.shields.io/badge/coverage-6%25-red.svg?maxAge=60)
+
+
 This is a very simple (and primitive) PowerShell module to interact with the Azure DevOps REST API.
 
 ## Getting started
