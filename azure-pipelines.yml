@@ -21,7 +21,7 @@ jobs:
     inputs:
       testResultsFormat: 'NUnit'
       testResultsFiles: '.\Build\Output\TestResults_PS*.xml'
-      
+
   - task: PublishCodeCoverageResults@2
     displayName: 'Publish code coverage results'
     inputs:
