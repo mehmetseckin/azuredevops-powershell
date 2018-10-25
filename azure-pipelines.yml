@@ -3,6 +3,7 @@ name: '0.1.$(rev:r)'
 trigger:
   - master
 
+jobs:
 - job: 'build-and-test'
   displayName: 'Build and Test'
   pool:
