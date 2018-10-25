@@ -7,7 +7,7 @@ jobs:
 - job: 'build'
   displayName: 'Build and Test'
   pool:
-    vmImage: 'VS2017-Win2016'
+    vmImage: 'win1803'
 
   workspace:
     clean: all
@@ -28,7 +28,7 @@ jobs:
       testResultsFormat: 'NUnit'
       testResultsFiles: '.\Build\Output\TestResults_PS*.xml'
 
-  - task: PublishCodeCoverageResults@2
+  - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage results'
     inputs:
       codeCoverageTool: 'JaCoCo'
