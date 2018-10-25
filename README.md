@@ -1,6 +1,7 @@
 # AzureDevOps.PowerShell
 
 [![Build status](https://ci.appveyor.com/api/projects/status/30m115gw52ens456?svg=true)](https://ci.appveyor.com/project/seckin92/azuredevops-powershell)
+![AppVeyor tests](https://img.shields.io/appveyor/tests/seckin92/azuredevops-powershell.svg)
 ![Test Coverage](https://img.shields.io/badge/coverage-6%25-red.svg?maxAge=60)
 
 
