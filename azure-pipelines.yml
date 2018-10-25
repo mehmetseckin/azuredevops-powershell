@@ -7,7 +7,7 @@ jobs:
 - job: 'build'
   displayName: 'Build and Test'
   pool:
-    vmImage: 'VS2017-Win2016'
+    vmImage: 'win1803'
 
   steps:
   - task: PowerShell@2
