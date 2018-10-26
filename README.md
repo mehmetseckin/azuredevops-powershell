@@ -1,6 +1,6 @@
 # AzureDevOps.PowerShell
 
-[![Build Status](https://dev.azure.com/seckin92/azuredevops-powershell/_apis/build/status/seckin92.azuredevops-powershell)](https://dev.azure.com/seckin92/azuredevops-powershell/_build/latest?definitionId=1)
+[![Build Status](https://dev.azure.com/azuredevops-powershell/azuredevops-powershell/_apis/build/status/azuredevops-powershell-ci)](https://dev.azure.com/azuredevops-powershell/azuredevops-powershell/_build/latest?definitionId=1)
 
 This is a very simple (and primitive) PowerShell module to interact with the Azure DevOps REST API.
 
