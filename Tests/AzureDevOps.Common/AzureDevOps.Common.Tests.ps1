@@ -1,4 +1,4 @@
-$ModuleName = "Common";
+$ModuleName = "AzureDevOps.Common";
 Import-Module "$PSScriptRoot\..\..\AzureDevOps\$ModuleName" -Force;
 
 Describe "$ModuleName submodule behaviour" {

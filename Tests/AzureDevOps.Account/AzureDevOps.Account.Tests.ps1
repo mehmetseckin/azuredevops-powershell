@@ -1,4 +1,4 @@
-$ModuleName = "Account";
+$ModuleName = "AzureDevOps.Account";
 Import-Module "$PSScriptRoot\..\..\AzureDevOps\$ModuleName" -Force;
 
 Describe "$ModuleName submodule behaviour" {

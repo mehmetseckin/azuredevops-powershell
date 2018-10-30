@@ -1,4 +1,4 @@
-$ModuleName = "VariableGroups";
+$ModuleName = "AzureDevOps.VariableGroups";
 Import-Module "$PSScriptRoot\..\..\AzureDevOps\$ModuleName" -Force;
 
 Describe "$ModuleName submodule behaviour" {
