@@ -1,4 +1,4 @@
-Import-Module "$PSScriptRoot\..\..\..\AzureDevOps\Common" -Force;
+Import-Module "$PSScriptRoot\..\..\..\AzureDevOps\AzureDevOps.Common" -Force;
 
 Describe "Invoke-AzureDevOpsRestMethod" {
 
@@ -21,14 +21,14 @@ Describe "Invoke-AzureDevOpsRestMethod" {
             Set-Variable -Name "AzureDevOpsAccount" -Scope Global -Value $true -Force;
         }
 
-        Mock -ModuleName Common -CommandName Invoke-RestMethod { 
+        Mock -ModuleName AzureDevOps.Common -CommandName Invoke-RestMethod { 
             "Invoke-RestMethod called."
         }
 
         It 'Calls Invoke-RestMethod once' {
         
             Invoke-AzureDevOpsRestMethod
-            Assert-MockCalled -ModuleName Common -CommandName Invoke-RestMethod -Exactly -Times 1;
+            Assert-MockCalled -ModuleName AzureDevOps.Common -CommandName Invoke-RestMethod -Exactly -Times 1;
         }
     }
 }

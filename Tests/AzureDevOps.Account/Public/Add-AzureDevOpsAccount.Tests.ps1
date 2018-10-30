@@ -1,4 +1,4 @@
-Import-Module "$PSScriptRoot\..\..\..\AzureDevOps\Account" -Force;
+Import-Module "$PSScriptRoot\..\..\..\AzureDevOps\AzureDevOps.Account" -Force;
 
 Describe "Add-AzureDevOpsAccount" {
 
