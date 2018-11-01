@@ -8,8 +8,8 @@ Add-AzureDevOpsAccount `
     -Token "<azure-devops-personal-access-token>";
 
 # Retrieve existing variable group
-$groups = Get-AzureDevOpsVariableGroups -SearchString "Demo Variable Group";
-$group = $groups[0].value;
+$groups = Get-AzureDevOpsVariableGroup -SearchString "Demo Variable Group";
+$group = $groups[0];
 
 # Read variables from the JSON file and add them to the variable group
 $vars = Get-Content .\vars.json | ConvertFrom-Json;

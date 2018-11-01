@@ -19,7 +19,7 @@ function Get-AzureDevOpsVariableGroup
     Gets the variable group with ID: "2".
 
     .EXAMPLE
-    Get-AzureDevOpsVariableGroups -SearchString "contoso"
+    Get-AzureDevOpsVariableGroup -SearchString "contoso"
 
     Gets variable groups which have names starting with "contoso".
     #>
