@@ -35,7 +35,14 @@ function Get-AzureDevOpsVariableGroup
 
     if($PSCmdlet.ParameterSetName -eq 'GroupId')
     {
-        return Invoke-AzureDevOpsRestMethod -PartialUri "/distributedtask/variablegroups/$($GroupId)?api-version=4.1-preview.1" -Method Get;
+        $result = Invoke-AzureDevOpsRestMethod -PartialUri "/distributedtask/variablegroups/$($GroupId)?api-version=4.1-preview.1" -Method Get;
+        
+        if($null -eq $result)
+        {
+            Write-Warning -Message "No variable groups found with ID '$GroupId'.";
+        }
+
+        return $result        
     }
     else
     {
@@ -48,6 +55,13 @@ function Get-AzureDevOpsVariableGroup
             $PartialUri = "/distributedtask/variablegroups/?api-version=4.1-preview.1";
         }
 
-        return Invoke-AzureDevOpsRestMethod -PartialUri $PartialUri -Method Get;
+        $result = Invoke-AzureDevOpsRestMethod -PartialUri $PartialUri -Method Get;
+        
+        if($result.count -eq 0)
+        {
+            Write-Warning -Message "No variable groups found with a name that starts with '$SearchString'.";
+        }
+        
+        return $result.value;
     }
 }

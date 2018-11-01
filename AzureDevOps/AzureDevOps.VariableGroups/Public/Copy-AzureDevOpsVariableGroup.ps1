@@ -41,7 +41,7 @@ function Copy-AzureDevOpsVariableGroup
     }
     elseif($GroupName)
     {
-        $group = (Get-AzureDevOpsVariableGroup -SearchString $GroupName).value[0];
+        $group = (Get-AzureDevOpsVariableGroup -SearchString $GroupName)[0];
     }
 
     if(-not $NewGroupName)
