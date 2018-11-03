@@ -16,6 +16,6 @@ $vars = Get-Content .\vars.json | ConvertFrom-Json;
 $vars | Get-Member -MemberType NoteProperty | ForEach-Object {
     $Name = $_.Name
     $Value = $vars."$Name"
-    Write-Host "Adding $Name = $Value"
+    Write-Output "Adding $Name = $Value"
     $null = Add-AzureDevOpsVariableToVariableGroup -GroupId $group.id -Name $Name -Value $Value
 }

@@ -7,6 +7,11 @@ Properties {
     {
         $ProjectRoot = Resolve-Path "$PSScriptRoot\.."
     }
+
+    $Timestamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
+    $PSVersion = $PSVersionTable.PSVersion.Major
+    $OutDir = "$ProjectRoot\Build\Output"
+    New-Item -Type Directory -Path $OutDir -Force -ErrorAction SilentlyContinue;
 }
 
 Task Default -Depends Build
@@ -18,13 +23,32 @@ Task Init {
     "`n"
 }
 
-Task Test -Depends Init  {
+Task Analyze -Depends Init {
+    
+    $ModuleScriptAnalyzerResultsFile = "$OutDir\ModuleScriptAnalyzerResults_PS$PSVersion`_$TimeStamp.xml"
+    $ExamplesScriptAnalyzerResultsFile = "$OutDir\ExamplesScriptAnalyzerResults_PS$PSVersion`_$TimeStamp.xml"
+
+    $ScriptAnalyzerRules = Get-ScriptAnalyzerRule -Severity Warning
+    $ModuleScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path "$ProjectRoot\AzureDevOps" -Recurse -IncludeRule $ScriptAnalyzerRules;
+    If ( $ModuleScriptAnalyzerResult ) {  
+        $ModuleScriptAnalyzerResultString = $ModuleScriptAnalyzerResult | Out-String
+        Write-Warning $ModuleScriptAnalyzerResultString
+    }
+
+    Export-NUnitXml -ScriptAnalyzerResult $ModuleScriptAnalyzerResult -Path $ModuleScriptAnalyzerResultsFile;
+
+    $ExamplesScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path "$ProjectRoot\Examples" -Recurse -IncludeRule $ScriptAnalyzerRules;
+    If ( $ExamplesScriptAnalyzerResult ) {  
+        $ExamplesScriptAnalyzerResultString = $ExamplesScriptAnalyzerResult | Out-String
+        Write-Warning $ExamplesScriptAnalyzerResultString
+    }
+
+    Export-NUnitXml -ScriptAnalyzerResult $ExamplesScriptAnalyzerResult -Path $ExamplesScriptAnalyzerResultsFile;
+}
+
+Task Test -Depends Analyze  {
     "`n`tTesting with PowerShell $PSVersion"
 
-    $Timestamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
-    $PSVersion = $PSVersionTable.PSVersion.Major
-    $OutDir = "$ProjectRoot\Build\Output"
-    New-Item -Type Directory -Path $OutDir -Force -ErrorAction SilentlyContinue;
     $TestResultsFile = "$OutDir\TestResults_PS$PSVersion`_$TimeStamp.xml"
     $CodeCoverageFile = "$OutDir\CodeCoverageReport_PS$PSVersion`_$TimeStamp.xml"
 
@@ -38,7 +62,7 @@ Task Test -Depends Init  {
         -CodeCoverageOutputFile $CodeCoverageFile `
         -CodeCoverageOutputFileFormat JaCoCo `
         -PassThru;
-        
+
     if($TestResults.FailedCount -gt 0)
     {
         Write-Error "Failed '$($TestResults.FailedCount)' tests, build failed"
@@ -49,4 +73,5 @@ Task Test -Depends Init  {
 Task Build -Depends Test {
     # Load the module, read the exported functions, update the psd1 FunctionsToExport
     Set-ModuleFunctions
+    Set-ModuleAliases
 }

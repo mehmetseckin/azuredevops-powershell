@@ -28,6 +28,18 @@ jobs:
       testResultsFormat: 'NUnit'
       testResultsFiles: '**/TestResults_PS*.xml'
 
+  - task: PublishTestResults@2
+    displayName: 'Publish module script analysis results'
+    inputs:
+      testResultsFormat: 'NUnit'
+      testResultsFiles: '**/ModuleScriptAnalyzerResults_PS*.xml'
+
+  - task: PublishTestResults@2
+    displayName: 'Publish examples script analysis results'
+    inputs:
+      testResultsFormat: 'NUnit'
+      testResultsFiles: '**/ExamplesScriptAnalyzerResults_PS*.xml'
+
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage results'
     inputs:
