@@ -26,7 +26,7 @@ jobs:
     displayName: 'Publish test results'
     inputs:
       testResultsFormat: 'NUnit'
-      testResultsFiles: '**/TestResults_PS*.xml'
+      testResultsFiles: '**/TestResults_PS*.xml'; '**/ModuleScriptAnalyzerResults_PS*.xml'; '**/ExamplesScriptAnalyzerResults_PS*.xml'
 
   - task: PublishCodeCoverageResults@1
     displayName: 'Publish code coverage results'
