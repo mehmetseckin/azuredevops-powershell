@@ -1,8 +1,8 @@
-# AzureDevOps.PowerShell
+# AzureDevOps
 
 [![Build Status](https://dev.azure.com/azuredevops-powershell/azuredevops-powershell/_apis/build/status/azuredevops-powershell-ci)](https://dev.azure.com/azuredevops-powershell/azuredevops-powershell/_build/latest?definitionId=1)
 
-This is a very simple (and primitive) PowerShell module to interact with the Azure DevOps REST API.
+AzureDevOps is a very simple (and primitive) PowerShell module to interact with the Azure DevOps REST API.
 
 ## Getting started
 
