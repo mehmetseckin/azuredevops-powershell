@@ -1,6 +1,8 @@
 # PSake makes variables declared here available in other scriptblocks
 Properties {
 
+    $ModuleName = "AzureDevOps";
+
     # Find the build folder based on build system
     $ProjectRoot = $ENV:BHProjectPath
     if(-not $ProjectRoot)
@@ -29,7 +31,7 @@ Task Analyze -Depends Init {
     $ExamplesScriptAnalyzerResultsFile = "$OutDir\ExamplesScriptAnalyzerResults_PS$PSVersion`_$TimeStamp.xml"
 
     $ScriptAnalyzerRules = Get-ScriptAnalyzerRule -Severity Warning
-    $ModuleScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path "$ProjectRoot\AzureDevOps" -Recurse -IncludeRule $ScriptAnalyzerRules;
+    $ModuleScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path "$ProjectRoot\$ModuleName" -Recurse -IncludeRule $ScriptAnalyzerRules;
     If ( $ModuleScriptAnalyzerResult ) {  
         $ModuleScriptAnalyzerResultString = $ModuleScriptAnalyzerResult | Out-String
         Write-Warning $ModuleScriptAnalyzerResultString
@@ -74,4 +76,8 @@ Task Build -Depends Test {
     # Load the module, read the exported functions, update the psd1 FunctionsToExport
     Set-ModuleFunctions
     Set-ModuleAliases
+}
+
+Task Docs {
+    New-MarkdownHelp -Module $ModuleName -OutputFolder "$ProjectRoot\Docs\" -Force
 }
