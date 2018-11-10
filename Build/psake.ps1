@@ -1,12 +1,16 @@
 # PSake makes variables declared here available in other scriptblocks
 Properties {
 
+    $ModuleName = "AzureDevOps";
+
     # Find the build folder based on build system
     $ProjectRoot = $ENV:BHProjectPath
     if(-not $ProjectRoot)
     {
         $ProjectRoot = Resolve-Path "$PSScriptRoot\.."
     }
+
+    $DocumentationPath = "$ProjectRoot\Docs\";
 
     $Timestamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
     $PSVersion = $PSVersionTable.PSVersion.Major
@@ -29,7 +33,7 @@ Task Analyze -Depends Init {
     $ExamplesScriptAnalyzerResultsFile = "$OutDir\ExamplesScriptAnalyzerResults_PS$PSVersion`_$TimeStamp.xml"
 
     $ScriptAnalyzerRules = Get-ScriptAnalyzerRule -Severity Warning
-    $ModuleScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path "$ProjectRoot\AzureDevOps" -Recurse -IncludeRule $ScriptAnalyzerRules;
+    $ModuleScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path "$ProjectRoot\$ModuleName" -Recurse -IncludeRule $ScriptAnalyzerRules;
     If ( $ModuleScriptAnalyzerResult ) {  
         $ModuleScriptAnalyzerResultString = $ModuleScriptAnalyzerResult | Out-String
         Write-Warning $ModuleScriptAnalyzerResultString
@@ -75,3 +79,25 @@ Task Build -Depends Test {
     Set-ModuleFunctions
     Set-ModuleAliases
 }
+
+Task GenerateDocs {
+
+    Import-Module "$ProjectRoot\$ModuleName" -Scope Global -Force;
+    New-MarkdownHelp -Module $ModuleName -OutputFolder $DocumentationPath -Force;
+    Remove-Module "$ModuleName";
+}
+
+Task IndexDocs -Depends GenerateDocs  {
+
+    $IndexFileName = "Index.md";
+    $DocumentedCommands = (Get-ChildItem "$DocumentationPath\*.md" -Exclude $IndexFileName).BaseName;
+    $IndexLines = @();
+    $IndexLines += "# AzureDevOps Documentation";
+    $IndexLines += "";
+    foreach ($CommandName in $DocumentedCommands) {
+        $IndexLines += "- [$CommandName](./$CommandName.md)"
+    }
+    $IndexLines -join [Environment]::NewLine | Out-File "$DocumentationPath\$IndexFileName" -Force;
+}
+
+Task Docs -Depends IndexDocs {}

@@ -4,8 +4,8 @@ param ($Task = 'Default')
 Get-PackageProvider -Name NuGet -ForceBootstrap | Out-Null
 
 Install-Module Psake, BuildHelpers -Force
-Install-Module Pester, PSScriptAnalyzer -SkipPublisherCheck -Force
-Import-Module Psake, BuildHelpers, "$PSScriptRoot\Modules\Export-NUnitXml"
+Install-Module Pester, PSScriptAnalyzer, platyPS -SkipPublisherCheck -Force
+Import-Module Psake, BuildHelpers, "$PSScriptRoot\Modules\Export-NUnitXml", platyPS
 
 Set-BuildEnvironment -Force
 

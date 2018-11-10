@@ -38,6 +38,10 @@ Get-Command *AzureDevOps*
 Get-Help Add-AzureDevOpsAccount -Detailed
 ```
 
+## Documentation
+
+Documentation for the individual commands is available in the [Docs](./Docs) folder.
+
 ## Alternatives
 
  * [vsteam](https://github.com/DarqueWarrior/vsteam) - A comprehensive PowerShell module for accessing TFS and VSTS.
