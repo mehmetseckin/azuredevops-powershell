@@ -10,6 +10,8 @@ Properties {
         $ProjectRoot = Resolve-Path "$PSScriptRoot\.."
     }
 
+    $DocumentationPath = "$ProjectRoot\Docs\";
+
     $Timestamp = Get-Date -UFormat "%Y%m%d-%H%M%S"
     $PSVersion = $PSVersionTable.PSVersion.Major
     $OutDir = "$ProjectRoot\Build\Output"
@@ -78,6 +80,24 @@ Task Build -Depends Test {
     Set-ModuleAliases
 }
 
-Task Docs {
-    New-MarkdownHelp -Module $ModuleName -OutputFolder "$ProjectRoot\Docs\" -Force
+Task GenerateDocs {
+
+    Import-Module "$ProjectRoot\$ModuleName" -Scope Global -Force;
+    New-MarkdownHelp -Module $ModuleName -OutputFolder $DocumentationPath -Force;
+    Remove-Module "$ModuleName";
 }
+
+Task IndexDocs -Depends GenerateDocs  {
+
+    $IndexFileName = "Index.md";
+    $DocumentedCommands = (Get-ChildItem "$DocumentationPath\*.md" -Exclude $IndexFileName).BaseName;
+    $IndexLines = @();
+    $IndexLines += "# AzureDevOps Documentation";
+    $IndexLines += "";
+    foreach ($CommandName in $DocumentedCommands) {
+        $IndexLines += "- [$CommandName](./$CommandName.md)"
+    }
+    $IndexLines -join [Environment]::NewLine | Out-File "$DocumentationPath\$IndexFileName" -Force;
+}
+
+Task Docs -Depends IndexDocs {}
