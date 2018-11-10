@@ -5,7 +5,7 @@ function Add-AzureDevOpsAccount
     Add your Azure DevOps account to interact with the Azure DevOps REST API.
 
     .DESCRIPTION
-    Saves your account details in a global variable named `$AzureDevOpsAccount` for the other cmdlets to use.
+    Saves your account details in a global variable named $AzureDevOpsAccount for the other cmdlets to use.
 
     .PARAMETER OrganisationName
     Your Azure DevOps organisation name
@@ -13,11 +13,15 @@ function Add-AzureDevOpsAccount
     .PARAMETER ProjectName
     Your Azure DevOps project name
 
+    .PARAMETER UserName
+    Your Azure DevOps user name
+
     .PARAMETER Token
     Your Azure DevOps personal access token
 
     .EXAMPLE
-    Add-AzureDevOpsAccount -OrganisationName "contoso" -ProjectName "adventureapp" -UserName "mehmet.seckin@contoso.com" -Token "<your personal access token>"
+    Add-AzureDevOpsAccount -OrganisationName "contoso" -ProjectName "adventureapp" -UserName "mehmet.seckin@contoso.com" -Token "your-personal-access-token"
+
     #>
     param
     (
