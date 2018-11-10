@@ -40,7 +40,7 @@ Get-Help Add-AzureDevOpsAccount -Detailed
 
 ## Documentation
 
-Documentation for the individual commands is available in the [Docs](./Docs) folder.
+Documentation for the individual commands is available in the [Docs](https://github.com/mehmetseckin/azuredevops-powershell/blob/master/Docs/Index.md) folder.
 
 ## Alternatives
 
