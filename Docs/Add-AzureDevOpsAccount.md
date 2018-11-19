@@ -18,7 +18,7 @@ Add-AzureDevOpsAccount [[-OrganisationName] <String>] [[-ProjectName] <String>] 
 ```
 
 ## DESCRIPTION
-Saves your account details in a global variable named `$AzureDevOpsAccount` for the other cmdlets to use.
+Saves your account details in a global variable named $AzureDevOpsAccount for the other cmdlets to use.
 
 ## EXAMPLES
 

@@ -89,15 +89,90 @@ Task GenerateDocs {
 
 Task IndexDocs -Depends GenerateDocs  {
 
-    $IndexFileName = "Index.md";
-    $DocumentedCommands = (Get-ChildItem "$DocumentationPath\*.md" -Exclude $IndexFileName).BaseName;
-    $IndexLines = @();
-    $IndexLines += "# AzureDevOps Documentation";
-    $IndexLines += "";
-    foreach ($CommandName in $DocumentedCommands) {
-        $IndexLines += "- [$CommandName](./$CommandName.md)"
+
+    function Get-ModuleIndexHeader
+    {
+        param
+        (
+            [Parameter(Mandatory=$true)]
+            [PSModuleInfo]$ModuleInfo,
+            [Parameter(Mandatory=$false)]
+            [int]$Depth = 0
+        )
+        
+        $hashes = "#" * ($Depth + 1);
+        $Lines = @();
+        $Lines += "$hashes [$($ModuleInfo.Name)](./$($ModuleInfo.Name).md) ";
+        
+        if($Depth -eq 0) 
+        {
+            $Lines += "$($ModuleInfo.Description) - ``version $($ModuleInfo.Version)``";
+            $Lines += "";
+            $Lines += "---";
+        }
+        
+        $Lines += "";
+
+        return $Lines;
     }
-    $IndexLines -join [Environment]::NewLine | Out-File "$DocumentationPath\$IndexFileName" -Force;
+
+    function Index-ExportedCommands
+    {
+        param
+        (
+            [Parameter(Mandatory=$true)]
+            [PSModuleInfo]$ModuleInfo,
+            [Parameter(Mandatory=$false)]
+            [int]$Depth = 0
+        )
+        
+        $hashes = "#" * ($Depth + 2);
+        $Lines = @();
+        $Lines += "$hashes Commands"
+        $Lines += ""
+
+        $Commands = $ModuleInfo.ExportedCommands.Values | Where-Object {$_.CommandType -eq "Function"};
+        foreach ($Command in $Commands) {
+            $CommandName = $Command.Name;
+            $Lines += "- [$CommandName](./$CommandName.md)"
+        }
+        $Lines += "";
+
+        return $Lines;
+    }
+
+    function Index-Module
+    {
+        param
+        (
+            [Parameter(Mandatory=$true)]
+            [PSModuleInfo]$ModuleInfo,
+            [Parameter(Mandatory=$false)]
+            [string]$OutputFolder = ".",
+            [Parameter(Mandatory=$false)]
+            [int]$Depth = 0
+        )
+
+        $IndexFileName = "$($ModuleInfo.Name).md";
+        $Lines = @();
+        $Lines += Get-ModuleIndexHeader -ModuleInfo $ModuleInfo -Depth $Depth;
+        if($ModuleInfo.NestedModules.Count -gt 0) 
+        {
+            foreach ($nestedModuleInfo in $ModuleInfo.NestedModules) {
+                $Lines += Index-Module -ModuleInfo $nestedModuleInfo -OutputFolder $OutputFolder -Depth ($Depth + 1)
+            }
+        }
+        else {
+            $Lines += Index-ExportedCommands -ModuleInfo $nestedModuleInfo -Depth $Depth;
+        }
+
+        $Lines -join [Environment]::NewLine | Out-File "$OutputFolder\$IndexFileName" -Force;
+        return $Lines;
+    }
+    
+    Import-Module "$ProjectRoot\$ModuleName" -Force;
+    $ModuleInfo = Get-Module -Name $ModuleName;
+    Index-Module -ModuleInfo $ModuleInfo -OutputFolder $DocumentationPath;
 }
 
 Task Docs -Depends IndexDocs {}
