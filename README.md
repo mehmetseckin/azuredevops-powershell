@@ -9,36 +9,42 @@ AzureDevOps is a very simple (and primitive) PowerShell module to interact with 
 ## Getting started
 
 1. Clone the repository
+   
+   ```powershell
+   git clone https://github.com/mehmetseckin/azuredevops-powershell
+   cd azuredevops-powershell
+   ```
+   
 2. Import the module
 
-```powershell
-Import-Module '\path\to\AzureDevOps'
-```
+   ```powershell
+   Import-Module '.\AzureDevOps'
+   ```
 
 3. Add connection details
 
-```powershell
-# Add Azure DevOps connection details
-Add-AzureDevOpsAccount `
-    -OrganisationName "contoso" `
-    -ProjectName "AzureDevOps PowerShell Demo" `
-    -UserName "user@name.com" `
-    -Token "<azure-devops-personal-access-token>";
-```
-
+   ```powershell
+   # Add Azure DevOps connection details
+   Add-AzureDevOpsAccount `
+       -OrganisationName "contoso" `
+       -ProjectName "AzureDevOps PowerShell Demo" `
+       -UserName "user@name.com" `
+       -Token "<azure-devops-personal-access-token>";
+   ```
+   
 4. Check out the examples in the [Examples](./Examples) folder.
 
 5. Or, check out the list of available cmdlets
 
-```powershell
-Get-Command *AzureDevOps*
-```
+   ```powershell
+   Get-Command *AzureDevOps*
+   ```
 
 6. Use `Get-Help` to see details for the cmdlets.
 
-```powershell
-Get-Help Add-AzureDevOpsAccount -Detailed
-```
+   ```powershell
+   Get-Help Add-AzureDevOpsAccount -Detailed
+   ```
 
 ## Documentation
 
