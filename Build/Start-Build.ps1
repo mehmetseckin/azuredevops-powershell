@@ -6,10 +6,9 @@ Get-PackageProvider -Name NuGet -ForceBootstrap | Out-Null
 $dependencies = @("Psake", "BuildHelpers", "Pester", "PSScriptAnalyzer", "platyPS", "$PSScriptRoot\Modules\Export-NUnitXml");
 foreach ($moduleName in $dependencies)
 {
-    
     Write-Verbose "Installing $moduleName";
     Install-Module $moduleName -Scope CurrentUser -SkipPublisherCheck -Force;
-    
+
     Write-Verbose "Importing $moduleName";
     Import-Module $moduleName -Force;
 }
