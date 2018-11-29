@@ -32,7 +32,7 @@ AzureDevOps is a very simple (and primitive) PowerShell module to interact with 
        -Token "<azure-devops-personal-access-token>";
    ```
 
-4. Check out the examples in the [Examples](./Examples) folder.
+4. Check out the examples in the [Examples](https://github.com/mehmetseckin/azuredevops-powershell/tree/master/Examples) folder.
 
 5. Or, check out the list of available cmdlets
 
