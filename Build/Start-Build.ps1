@@ -3,9 +3,18 @@ param ($Task = 'Default')
 # Grab nuget bits, install modules, set build variables, start build.
 Get-PackageProvider -Name NuGet -ForceBootstrap | Out-Null
 
-Install-Module Psake, BuildHelpers -Force
-Install-Module Pester, PSScriptAnalyzer, platyPS -SkipPublisherCheck -Force
-Import-Module Psake, BuildHelpers, "$PSScriptRoot\Modules\Export-NUnitXml", platyPS
+$dependencies = @("Psake", "BuildHelpers", "Pester", "PSScriptAnalyzer", "platyPS", "$PSScriptRoot\Modules\Export-NUnitXml");
+foreach ($moduleName in $dependencies)
+{
+    if(-not (Get-Module -Name $moduleName -ListAvailable))
+    {
+        Write-Verbose "Installing $moduleName";
+        Install-Module $moduleName -Scope CurrentUser -SkipPublisherCheck -Force;
+    }
+
+    Write-Verbose "Importing $moduleName";
+    Import-Module $moduleName -Force;
+}
 
 Set-BuildEnvironment -Force
 
