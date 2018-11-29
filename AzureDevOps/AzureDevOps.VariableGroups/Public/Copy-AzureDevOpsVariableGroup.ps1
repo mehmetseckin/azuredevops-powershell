@@ -49,14 +49,13 @@ function Copy-AzureDevOpsVariableGroup
         $NewGroupName = "$($group.name) (Copy)";
     }
 
-    $newGroup = [PSCustomObject]@{
-        name = $NewGroupName
-        description = $group.description
-        providerData = $group.providerData
-        type = $group.type
-        variables = $group.variables
-    };
+    # Create a new group object
+    $newGroup = New-AzureDevOpsVariableGroup -Name $newGroupName -Description $group.description -Variables @();
+    
+    # Set variables and provider data
+    $newGroup.variables = $group.variables;
+    $newGroup = $newGroup | Add-Member -MemberType NoteProperty -Name providerData -Value $group.providerData;
 
-    $body = $newGroup | ConvertTo-Json;
-    return Invoke-AzureDevOpsRestMethod -PartialUri "/distributedtask/variablegroups?api-version=4.1-preview.1" -Method Post -Body $body;
+    # Create the new group
+    return Add-AzureDevOpsVariableGroup -Group $newGroup;
 }

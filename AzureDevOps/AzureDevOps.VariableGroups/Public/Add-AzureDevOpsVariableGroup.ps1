@@ -7,30 +7,22 @@ function Add-AzureDevOpsVariableGroup
     .DESCRIPTION
     Creates a new variable group using the currently added Azure DevOps account.
 
-    .PARAMETER Name
-    The name of the new variable group.
-
-    .PARAMETER Description
-    The description of the variable group.
-
-    .PARAMETER Variables
-    The variables contained in the variable group.
+    .PARAMETER Group
+    The variable group object.
 
     .EXAMPLE
-    $Variables = @();
-    $Variables += New-AzureDevOpsVariable -Name "MyVariable" -Value "MyVariableValue";
-    $Variables += New-AzureDevOpsVariable -Name "MySecretVariable" -Value "MySecretVariableValue" -Secret;
-    Add-AzureDevOpsVariableGroup -Name "MyVariableGroup" -Value "MyValue" -Variables $Variables
+    $variables = @();
+    $variables += New-AzureDevOpsVariable -Name "MyVariable" -Value "MyVariableValue";
+    $variables += New-AzureDevOpsVariable -Name "MySecretVariable" -Value "MySecretVariableValue" -IsSecret $true;
+    $group = New-AzureDevOpsVariableGroup -Name "MyGroup" -Description "My Awesome Group" -Variables $variables;
+    Add-AzureDevOpsVariableGroup -Group $group
     #>
 
     param
     (
-        [string]$Name,
-        [string]$Description,
-        [PSCustomObject[]]$Variables
+        [string]$Group
     )
 
-    $group = New-AzureDevOpsVariableGroup -Name $Name -Description $Description -Variables $Variables;
     $body = $group | ConvertTo-Json;
     return Invoke-AzureDevOpsRestMethod -PartialUri "/distributedtask/variablegroups?api-version=4.1-preview.1" -Method Post -Body $body
 }
