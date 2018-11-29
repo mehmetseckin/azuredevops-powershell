@@ -10,39 +10,27 @@ function Add-AzureDevOpsVariable
     .PARAMETER GroupId
     The ID of the variable group to add/update the variable in.
 
-    .PARAMETER Name
-    The variable name
-
-    .PARAMETER Value
-    The value for the variable
-
-    .PARAMETER IsSecret
-    The IsSecret flag for the variable.
+    .PARAMETER Variable
+    The variable object to add
 
     .EXAMPLE
-    Add-AzureDevOpsVariable -GroupId "2" -Name "MyVar" -Value "MyValue"
+    $myVariable = New-AzureDevOpsVariable -Name "MyVar" -Value "MyValue";
+    Add-AzureDevOpsVariable -GroupId "2" -Variable $myVariable;
     #>
     param
     (
        [string]$GroupId = "",
-       [string]$Name = "",
-       [string]$Value = "",
-       [string]$IsSecret = "false"
+       [string]$Variable = ""
     )
 
     $group = Get-AzureDevOpsVariableGroup -GroupId $GroupId;
-    if(Get-Member -InputObject $group.variables -Name $Name -MemberType NoteProperty)
+    if(Get-Member -InputObject $group.variables -Name $Variable.Name -MemberType NoteProperty)
     {
-        $group.variables."$Name".value = $Value
+        $group.variables."$($Variable.Name)" = $Variable.Value;
     }
     else
     {
-        $valueObject = [PSCustomObject]@{
-            value = $Value
-            isSecret = $IsSecret
-        };
-
-        Add-Member -InputObject $group.variables -MemberType NoteProperty -Name $Name -Value $valueObject
+        Add-Member -InputObject $group.variables -MemberType NoteProperty -Name $Variable.Name -Value $Variable.Value;
     }
 
     $body = $group | ConvertTo-Json;
