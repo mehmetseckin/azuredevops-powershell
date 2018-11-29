@@ -20,7 +20,7 @@ function Add-AzureDevOpsVariable
     param
     (
        [string]$GroupId = "",
-       [string]$Variable = ""
+       [PSCustomObject]$Variable
     )
 
     $group = Get-AzureDevOpsVariableGroup -GroupId $GroupId;

@@ -34,7 +34,7 @@ function New-AzureDevOpsVariableGroup
         name = $Name
         description = $Description
         variables = [PSCustomObject]@{}
-        $type = "Vsts"
+        type = "Vsts"
     }
 
     foreach($variable in $Variables) {

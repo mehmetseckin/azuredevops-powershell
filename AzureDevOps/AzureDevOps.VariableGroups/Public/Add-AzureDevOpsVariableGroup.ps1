@@ -20,7 +20,7 @@ function Add-AzureDevOpsVariableGroup
 
     param
     (
-        [string]$Group
+        [PSCustomObject]$Group
     )
 
     $body = $group | ConvertTo-Json;

@@ -33,7 +33,7 @@ function New-AzureDevOpsVariable
     };
 
     $variable = [PSCustomObject]@{
-        Name = $Nalue
+        Name = $Name
         Value = $valueObject
     };
 

@@ -54,7 +54,7 @@ function Copy-AzureDevOpsVariableGroup
     
     # Set variables and provider data
     $newGroup.variables = $group.variables;
-    $newGroup = $newGroup | Add-Member -MemberType NoteProperty -Name providerData -Value $group.providerData;
+    $newGroup | Add-Member -MemberType NoteProperty -Name providerData -Value $group.providerData;
 
     # Create the new group
     return Add-AzureDevOpsVariableGroup -Group $newGroup;
