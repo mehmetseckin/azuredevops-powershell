@@ -116,7 +116,7 @@ Task IndexDocs -Depends GenerateDocs  {
         return $Lines;
     }
 
-    function Index-ExportedCommands
+    function Get-ExportedCommandsIndex
     {
         param
         (
@@ -141,7 +141,7 @@ Task IndexDocs -Depends GenerateDocs  {
         return $Lines;
     }
 
-    function Index-Module
+    function Write-ModuleIndex
     {
         param
         (
@@ -159,11 +159,11 @@ Task IndexDocs -Depends GenerateDocs  {
         if($ModuleInfo.NestedModules.Count -gt 0) 
         {
             foreach ($nestedModuleInfo in $ModuleInfo.NestedModules) {
-                $Lines += Index-Module -ModuleInfo $nestedModuleInfo -OutputFolder $OutputFolder -Depth ($Depth + 1)
+                $Lines += Write-ModuleIndex -ModuleInfo $nestedModuleInfo -OutputFolder $OutputFolder -Depth ($Depth + 1)
             }
         }
         else {
-            $Lines += Index-ExportedCommands -ModuleInfo $nestedModuleInfo -Depth $Depth;
+            $Lines += Get-ExportedCommandsIndex -ModuleInfo $nestedModuleInfo -Depth $Depth;
         }
 
         $Lines -join [Environment]::NewLine | Out-File "$OutputFolder\$IndexFileName" -Force;
@@ -172,7 +172,7 @@ Task IndexDocs -Depends GenerateDocs  {
     
     Import-Module "$ProjectRoot\$ModuleName" -Force;
     $ModuleInfo = Get-Module -Name $ModuleName;
-    Index-Module -ModuleInfo $ModuleInfo -OutputFolder $DocumentationPath;
+    Write-ModuleIndex -ModuleInfo $ModuleInfo -OutputFolder $DocumentationPath;
 }
 
 Task Docs -Depends IndexDocs {}
