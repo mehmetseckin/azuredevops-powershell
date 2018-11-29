@@ -1,4 +1,4 @@
-function Add-AzureDevOpsVariableToVariableGroup
+function Add-AzureDevOpsVariable
 {
     <#
     .SYNOPSIS
@@ -20,7 +20,7 @@ function Add-AzureDevOpsVariableToVariableGroup
     The IsSecret flag for the variable.
 
     .EXAMPLE
-    Add-AzureDevOpsVariableToVariableGroup -GroupId "2" -Name "MyVar" -Value "MyValue"
+    Add-AzureDevOpsVariable -GroupId "2" -Name "MyVar" -Value "MyValue"
     #>
     param
     (

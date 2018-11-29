@@ -5,7 +5,7 @@ online version:
 schema: 2.0.0
 ---
 
-# Add-AzureDevOpsVariableToVariableGroup
+# Add-AzureDevOpsVariable
 
 ## SYNOPSIS
 Add or update a variable to a specified variable group
@@ -13,8 +13,7 @@ Add or update a variable to a specified variable group
 ## SYNTAX
 
 ```
-Add-AzureDevOpsVariableToVariableGroup [[-GroupId] <String>] [[-Name] <String>] [[-Value] <String>]
- [[-IsSecret] <String>]
+Add-AzureDevOpsVariable [[-GroupId] <String>] [[-Name] <String>] [[-Value] <String>] [[-IsSecret] <String>]
 ```
 
 ## DESCRIPTION
@@ -24,7 +23,7 @@ Adds or updates a variable in the specified variable group
 
 ### EXAMPLE 1
 ```
-Add-AzureDevOpsVariableToVariableGroup -GroupId "2" -Name "MyVar" -Value "MyValue"
+Add-AzureDevOpsVariable -GroupId "2" -Name "MyVar" -Value "MyValue"
 ```
 
 ## PARAMETERS

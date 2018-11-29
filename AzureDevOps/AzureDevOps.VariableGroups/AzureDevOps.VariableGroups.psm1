@@ -1,7 +1,7 @@
-. "$PSScriptRoot\Public\Add-AzureDevOpsVariableToVariableGroup.ps1";
+. "$PSScriptRoot\Public\Add-AzureDevOpsVariable.ps1";
 . "$PSScriptRoot\Public\Get-AzureDevOpsVariableGroup.ps1";
 . "$PSScriptRoot\Public\Copy-AzureDevOpsVariableGroup.ps1";
 
-Export-ModuleMember -Function Add-AzureDevOpsVariableToVariableGroup;
+Export-ModuleMember -Function Add-AzureDevOpsVariable;
 Export-ModuleMember -Function Get-AzureDevOpsVariableGroup;
 Export-ModuleMember -Function Copy-AzureDevOpsVariableGroup;

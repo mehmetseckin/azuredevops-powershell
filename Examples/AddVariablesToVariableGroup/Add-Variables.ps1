@@ -17,5 +17,5 @@ $vars | Get-Member -MemberType NoteProperty | ForEach-Object {
     $Name = $_.Name
     $Value = $vars."$Name"
     Write-Output "Adding $Name = $Value"
-    $null = Add-AzureDevOpsVariableToVariableGroup -GroupId $group.id -Name $Name -Value $Value
+    $null = Add-AzureDevOpsVariable -GroupId $group.id -Name $Name -Value $Value
 }

@@ -4,8 +4,8 @@ Import-Module "$PSScriptRoot\..\..\AzureDevOps\$ModuleName" -Force;
 Describe "$ModuleName submodule behaviour" {
     $ModuleInfo = Get-Module -Name $ModuleName;
     
-    It 'Exports a function named Add-AzureDevOpsVariableToVariableGroup' {
-        $ModuleInfo.ExportedFunctions.ContainsKey('Add-AzureDevOpsVariableToVariableGroup') | Should Be $True;
+    It 'Exports a function named Add-AzureDevOpsVariable' {
+        $ModuleInfo.ExportedFunctions.ContainsKey('Add-AzureDevOpsVariable') | Should Be $True;
     }
 
     It 'Exports a function named Get-AzureDevOpsVariableGroup' {
