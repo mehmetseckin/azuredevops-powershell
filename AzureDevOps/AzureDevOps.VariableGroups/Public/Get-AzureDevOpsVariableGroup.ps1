@@ -42,7 +42,7 @@ function Get-AzureDevOpsVariableGroup
             Write-Warning -Message "No variable groups found with ID '$GroupId'.";
         }
 
-        return $result        
+        return $result
     }
     else
     {
