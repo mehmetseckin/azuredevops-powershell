@@ -1,6 +1,16 @@
-. "$PSScriptRoot\Private\Install-AzureDevOpsPackage.ps1";
-. "$PSScriptRoot\Public\Install-AzureDevOpsNuGetPackage.ps1";
-. "$PSScriptRoot\Public\Install-AzureDevOpsNpmPackage.ps1";
+$Public  = @( Get-ChildItem -Path $PSScriptRoot\Public\*.ps1 -ErrorAction SilentlyContinue )
+$Private = @( Get-ChildItem -Path $PSScriptRoot\Private\*.ps1 -ErrorAction SilentlyContinue )
 
-Export-ModuleMember -Function Install-AzureDevOpsNuGetPackage;
-Export-ModuleMember -Function Install-AzureDevOpsNpmPackage;
+Foreach($import in @($Public + $Private))
+{
+    Try
+    {
+        . $import.FullName
+    }
+    Catch
+    {
+        Write-Error -Message "Failed to import function $($import.FullName): $_"
+    }
+}
+
+Export-ModuleMember -Function $Public.BaseName
