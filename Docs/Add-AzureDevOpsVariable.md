@@ -13,7 +13,7 @@ Add or update a variable to a specified variable group
 ## SYNTAX
 
 ```
-Add-AzureDevOpsVariable [[-GroupId] <String>] [[-Name] <String>] [[-Value] <String>] [[-IsSecret] <String>]
+Add-AzureDevOpsVariable [[-GroupId] <String>] [[-Variable] <PSObject>]
 ```
 
 ## DESCRIPTION
@@ -23,8 +23,10 @@ Adds or updates a variable in the specified variable group
 
 ### EXAMPLE 1
 ```
-Add-AzureDevOpsVariable -GroupId "2" -Name "MyVar" -Value "MyValue"
+$myVariable = New-AzureDevOpsVariable -Name "MyVar" -Value "MyValue";
 ```
+
+Add-AzureDevOpsVariable -GroupId "2" -Variable $myVariable;
 
 ## PARAMETERS
 
@@ -43,47 +45,17 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Name
-The variable name
+### -Variable
+The variable object to add
 
 ```yaml
-Type: String
+Type: PSObject
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: 2
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -Value
-The value for the variable
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 3
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -IsSecret
-The IsSecret flag for the variable.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: 4
-Default value: False
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
