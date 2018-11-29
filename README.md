@@ -9,12 +9,12 @@ AzureDevOps is a very simple (and primitive) PowerShell module to interact with 
 ## Getting started
 
 1. Clone the repository
-   
+
    ```powershell
    git clone https://github.com/mehmetseckin/azuredevops-powershell
    cd azuredevops-powershell
    ```
-   
+
 2. Import the module
 
    ```powershell
@@ -31,7 +31,7 @@ AzureDevOps is a very simple (and primitive) PowerShell module to interact with 
        -UserName "user@name.com" `
        -Token "<azure-devops-personal-access-token>";
    ```
-   
+
 4. Check out the examples in the [Examples](./Examples) folder.
 
 5. Or, check out the list of available cmdlets
@@ -52,6 +52,6 @@ Documentation for the individual commands is available in the [Docs](https://git
 
 ## Alternatives
 
- * [vsteam](https://github.com/DarqueWarrior/vsteam) - A comprehensive PowerShell module for accessing TFS and VSTS.
- * [AzureDevOpsPowerShell](https://github.com/rfennell/AzureDevOpsPowershell) - A selection of PowerShell scripts that make use of the Azure DevOps (TFS/VSTS) APIs.
- * [vststools-cli](https://github.com/AssureCare/vststools-cli) - A set of useful command-line tools and extensions for VSTS.
+* [vsteam](https://github.com/DarqueWarrior/vsteam) - A comprehensive PowerShell module for accessing TFS and VSTS.
+* [AzureDevOpsPowerShell](https://github.com/rfennell/AzureDevOpsPowershell) - A selection of PowerShell scripts that make use of the Azure DevOps (TFS/VSTS) APIs.
+* [vststools-cli](https://github.com/AssureCare/vststools-cli) - A set of useful command-line tools and extensions for VSTS.
