@@ -76,8 +76,8 @@ Task Test -Depends Analyze  {
 
 Task Build -Depends Test {
     # Load the module, read the exported functions, update the psd1 FunctionsToExport
-    Set-ModuleFunctions
-    Set-ModuleAliases
+    Set-ModuleFunctions -Name "$ProjectRoot\AzureDevOps"
+    Set-ModuleAliases -Name "$ProjectRoot\AzureDevOps"
 }
 
 Task GenerateDocs {

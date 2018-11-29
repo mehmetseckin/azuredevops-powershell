@@ -16,7 +16,7 @@ foreach ($moduleName in $dependencies)
     Import-Module $moduleName -Force;
 }
 
-Set-BuildEnvironment -Force
+Set-BuildEnvironment  -GitPath "git" -Force
 
 Invoke-psake $PSScriptRoot\psake.ps1 -taskList $Task -nologo
 exit ( [int]( -not $psake.build_success ) )
