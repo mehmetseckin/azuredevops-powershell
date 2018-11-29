@@ -1,11 +1,11 @@
-function Add-AzureDevOpsVariableGroup
+function New-AzureDevOpsVariableGroup
 {
     <#
     .SYNOPSIS
-    Create a new variable group
+    Create a new variable group object
 
     .DESCRIPTION
-    Creates a new variable group using the currently added Azure DevOps account.
+    Creates a new variable group object.
 
     .PARAMETER Name
     The name of the new variable group.
@@ -20,7 +20,7 @@ function Add-AzureDevOpsVariableGroup
     $Variables = @();
     $Variables += New-AzureDevOpsVariable -Name "MyVariable" -Value "MyVariableValue";
     $Variables += New-AzureDevOpsVariable -Name "MySecretVariable" -Value "MySecretVariableValue" -Secret;
-    Add-AzureDevOpsVariableGroup -Name "MyVariableGroup" -Value "MyValue" -Variables $Variables
+    $myGroup = New-AzureDevOpsVariableGroup -Name "MyVariableGroup" -Value "MyValue" -Variables $Variables
     #>
 
     param
@@ -30,7 +30,16 @@ function Add-AzureDevOpsVariableGroup
         [PSCustomObject[]]$Variables
     )
 
-    $group = New-AzureDevOpsVariableGroup -Name $Name -Description $Description -Variables $Variables;
-    $body = $group | ConvertTo-Json;
-    return Invoke-AzureDevOpsRestMethod -PartialUri "/distributedtask/variablegroups?api-version=4.1-preview.1" -Method Post -Body $body
+    $group = [PSCustomObject]@{
+        name = $Name
+        description = $Description
+        variables = [PSCustomObject]@{}
+        $type = "Vsts"
+    }
+
+    foreach($variable in $Variables) {
+        Add-Member -InputObject $group.variables -MemberType NoteProperty -Name $variable.Name -Value $variable.Value;
+    }
+
+    return $group;
 }

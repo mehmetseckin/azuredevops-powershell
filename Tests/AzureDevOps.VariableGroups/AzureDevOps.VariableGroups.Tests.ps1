@@ -19,4 +19,12 @@ Describe "$ModuleName submodule behaviour" {
     It 'Exports a function named New-AzureDevOpsVariable' {
         $ModuleInfo.ExportedFunctions.ContainsKey('New-AzureDevOpsVariableGroup') | Should Be $True;
     }
+    
+    It 'Exports a function named New-AzureDevOpsVariableGroup' {
+        $ModuleInfo.ExportedFunctions.ContainsKey('New-AzureDevOpsVariableGroup') | Should Be $True;
+    }
+    
+    It 'Exports a function named Add-AzureDevOpsVariableGroup' {
+        $ModuleInfo.ExportedFunctions.ContainsKey('New-AzureDevOpsVariableGroup') | Should Be $True;
+    }
 }
