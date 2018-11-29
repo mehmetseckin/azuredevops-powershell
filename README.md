@@ -1,5 +1,6 @@
 # AzureDevOps
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/38751a2a2c4c4f7f9c2bb57e39a6b5f0)](https://app.codacy.com/app/mehmetseckin/azuredevops-powershell?utm_source=github.com&utm_medium=referral&utm_content=mehmetseckin/azuredevops-powershell&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://dev.azure.com/azuredevops-powershell/azuredevops-powershell/_apis/build/status/azuredevops-powershell-ci)](https://dev.azure.com/azuredevops-powershell/azuredevops-powershell/_build/latest?definitionId=1)
 [![Azure DevOps Coverage](https://img.shields.io/azure-devops/coverage/azuredevops-powershell/azuredevops-powershell/1.svg
 )](https://dev.azure.com/azuredevops-powershell/azuredevops-powershell/_build/latest?definitionId=1)
