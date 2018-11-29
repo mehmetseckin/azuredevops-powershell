@@ -3,7 +3,7 @@ param ($Task = 'Default')
 # Grab nuget bits, install modules, set build variables, start build.
 Get-PackageProvider -Name NuGet -ForceBootstrap | Out-Null
 
-$dependencies = @("Psake", "BuildHelpers", "Pester", "PSScriptAnalyzer", "platyPS", "$PSScriptRoot\Modules\Export-NUnitXml");
+$dependencies = @("Psake", "BuildHelpers", "Pester", "PSScriptAnalyzer", "platyPS");
 foreach ($moduleName in $dependencies)
 {
     Write-Verbose "Installing $moduleName";
@@ -12,6 +12,8 @@ foreach ($moduleName in $dependencies)
     Write-Verbose "Importing $moduleName";
     Import-Module $moduleName -Force;
 }
+
+Import-Module "$PSScriptRoot\Modules\Export-NUnitXml" -Force;
 
 Set-BuildEnvironment  -GitPath "git" -Force
 
