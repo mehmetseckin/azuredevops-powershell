@@ -1,4 +1,4 @@
-﻿Import-Module '..\..\AzureDevOps'; 
+﻿Import-Module '..\..\AzureDevOps' -Force;
 
 # Add connection details
 Add-AzureDevOpsAccount `
