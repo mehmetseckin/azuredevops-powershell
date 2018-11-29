@@ -18,7 +18,7 @@ Properties {
     New-Item -Type Directory -Path $OutDir -Force -ErrorAction SilentlyContinue;
 }
 
-Task Default -Depends Build
+Task Default -Depends Build, Test, Analyze
 
 Task Init {
     Set-Location $ProjectRoot
@@ -27,7 +27,13 @@ Task Init {
     "`n"
 }
 
-Task Analyze -Depends Init {
+Task Build -Depends Init {
+    # Load the module, read the exported functions, update the psd1 FunctionsToExport
+    Set-ModuleFunctions -Name "$ProjectRoot\AzureDevOps"
+    Set-ModuleAliases -Name "$ProjectRoot\AzureDevOps"
+}
+
+Task Analyze -Depends Build {
     
     $ModuleScriptAnalyzerResultsFile = "$OutDir\ModuleScriptAnalyzerResults_PS$PSVersion`_$TimeStamp.xml"
     $ExamplesScriptAnalyzerResultsFile = "$OutDir\ExamplesScriptAnalyzerResults_PS$PSVersion`_$TimeStamp.xml"
@@ -50,7 +56,7 @@ Task Analyze -Depends Init {
     Export-NUnitXml -ScriptAnalyzerResult $ExamplesScriptAnalyzerResult -Path $ExamplesScriptAnalyzerResultsFile;
 }
 
-Task Test -Depends Analyze  {
+Task Test -Depends Build  {
     "`n`tTesting with PowerShell $PSVersion"
 
     $TestResultsFile = "$OutDir\TestResults_PS$PSVersion`_$TimeStamp.xml"
@@ -74,11 +80,6 @@ Task Test -Depends Analyze  {
     "`n"
 }
 
-Task Build -Depends Test {
-    # Load the module, read the exported functions, update the psd1 FunctionsToExport
-    Set-ModuleFunctions -Name "$ProjectRoot\AzureDevOps"
-    Set-ModuleAliases -Name "$ProjectRoot\AzureDevOps"
-}
 
 Task GenerateDocs {
 
