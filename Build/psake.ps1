@@ -39,7 +39,8 @@ Task Analyze -Depends Build {
     $ExamplesScriptAnalyzerResultsFile = "$OutDir\ExamplesScriptAnalyzerResults_PS$PSVersion`_$TimeStamp.xml"
 
     $ScriptAnalyzerRules = Get-ScriptAnalyzerRule -Severity Warning
-    $ModuleScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path "$ProjectRoot\$ModuleName" -Recurse -IncludeRule $ScriptAnalyzerRules;
+    $ExcludedRules = @('PSUseShouldProcessForStateChangingFunctions')
+    $ModuleScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path "$ProjectRoot\$ModuleName" -Recurse -IncludeRule $ScriptAnalyzerRules -ExcludeRule $ExcludedRules;
     If ( $ModuleScriptAnalyzerResult ) {  
         $ModuleScriptAnalyzerResultString = $ModuleScriptAnalyzerResult | Out-String
         Write-Warning $ModuleScriptAnalyzerResultString
@@ -47,7 +48,7 @@ Task Analyze -Depends Build {
 
     Export-NUnitXml -ScriptAnalyzerResult $ModuleScriptAnalyzerResult -Path $ModuleScriptAnalyzerResultsFile;
 
-    $ExamplesScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path "$ProjectRoot\Examples" -Recurse -IncludeRule $ScriptAnalyzerRules;
+    $ExamplesScriptAnalyzerResult = Invoke-ScriptAnalyzer -Path "$ProjectRoot\Examples" -Recurse -IncludeRule $ScriptAnalyzerRules -ExcludeRule $ExcludedRules;
     If ( $ExamplesScriptAnalyzerResult ) {  
         $ExamplesScriptAnalyzerResultString = $ExamplesScriptAnalyzerResult | Out-String
         Write-Warning $ExamplesScriptAnalyzerResultString
