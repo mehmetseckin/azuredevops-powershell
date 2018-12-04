@@ -1,4 +1,10 @@
 @{
+    PSDependOptions = @{
+        Paramaters = @{
+            Scope = 'CurrentUser'
+        }
+    }
+    
     psake            = 'latest'
     Pester           = @{
         Version = 'latest'
