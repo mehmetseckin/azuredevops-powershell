@@ -4,7 +4,10 @@ param ($Task = 'Default')
 Get-PackageProvider -Name NuGet -ForceBootstrap | Out-Null
 
 # Install PSDepend
-Install-Module PSDepend -Scope CurrentUser -Force;
+if(-not (Get-Module -ListAvailable -Name PSDepend))
+{
+    Install-Module PSDepend -Scope CurrentUser -Force;
+}
 
 # Install and import dependencies
 Invoke-PSDepend -Install -Import -Force -Verbose;
