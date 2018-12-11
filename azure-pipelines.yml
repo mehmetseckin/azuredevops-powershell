@@ -49,6 +49,8 @@ jobs:
   - powershell: Copy-Item "AzureDevOps" $(Build.ArtifactStagingDirectory) -Recurse -Force
     displayName: 'Stage module build output'
 
-  - task: PublishPipelineArtifact@0
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish build artifacts'
     inputs:
-      targetPath: $(Build.ArtifactStagingDirectory)
+      pathtoPublish: $(Build.ArtifactStagingDirectory)
+      artifactName: 'drop'
