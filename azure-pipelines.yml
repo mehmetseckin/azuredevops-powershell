@@ -1,7 +1,13 @@
 name: '0.1.$(rev:r)'
 
 trigger:
-  - master
+  branches:
+    include:
+    - master
+  paths:
+    exclude:
+      Docs/*
+      README.md
 
 jobs:
 - job: 'build'
