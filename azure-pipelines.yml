@@ -6,8 +6,8 @@ trigger:
     - master
   paths:
     exclude:
-      Docs/*
-      README.md
+    - Docs/*
+    - README.md
 
 jobs:
 - job: 'build'
