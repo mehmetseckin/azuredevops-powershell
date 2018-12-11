@@ -31,6 +31,12 @@ Task Build -Depends Init {
     # Load the module, read the exported functions, update the psd1 FunctionsToExport
     Set-ModuleFunctions -Name "$ProjectRoot\$ModuleName"
     Set-ModuleAliases -Name "$ProjectRoot\$ModuleName"
+    
+    # If available, set the build number as module version
+    if($env:BUILD_BUILDNUMBER)
+    {
+        Update-Metadata -Path $env:BHPSModuleManifest -PropertyName ModuleVersion -Value $env:BUILD_BUILDNUMBER -ErrorAction stop
+    }
 }
 
 Task Analyze -Depends Build {
