@@ -45,3 +45,10 @@ jobs:
     inputs:
       codeCoverageTool: 'JaCoCo'
       summaryFileLocation: '**/CodeCoverageReport_PS*.xml'
+
+  - powershell: Copy-Item "AzureDevOps" $(Build.ArtifactStagingDirectory) -Recurse -Force
+    displayName: 'Stage module build output'
+
+  - task: PublishPipelineArtifact@0
+    inputs:
+      targetPath: $(Build.ArtifactStagingDirectory)
