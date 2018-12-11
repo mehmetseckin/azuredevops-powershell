@@ -165,7 +165,7 @@ Task IndexDocs -Depends GenerateDocs  {
             }
         }
         else {
-            $Lines += Get-ExportedCommandsIndex -ModuleInfo $nestedModuleInfo -Depth $Depth;
+            $Lines += Get-ExportedCommandsIndex -ModuleInfo $ModuleInfo -Depth $Depth;
         }
 
         $Lines -join [Environment]::NewLine | Out-File "$OutputFolder\$IndexFileName" -Force;
