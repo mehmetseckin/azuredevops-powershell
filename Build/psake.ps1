@@ -29,8 +29,8 @@ Task Init {
 
 Task Build -Depends Init {
     # Load the module, read the exported functions, update the psd1 FunctionsToExport
-    Set-ModuleFunctions -Name "$ProjectRoot\AzureDevOps"
-    Set-ModuleAliases -Name "$ProjectRoot\AzureDevOps"
+    Set-ModuleFunctions -Name "$ProjectRoot\$ModuleName"
+    Set-ModuleAliases -Name "$ProjectRoot\$ModuleName"
 }
 
 Task Analyze -Depends Build {
