@@ -12,17 +12,16 @@ AzureDevOps is a very simple (and primitive) PowerShell module to interact with 
 
 ## Getting started
 
-1. Clone the repository
+1. Install the module
 
    ```powershell
-   git clone https://github.com/mehmetseckin/azuredevops-powershell
-   cd azuredevops-powershell
+   Install-Module AzureDevOps
    ```
 
 2. Import the module
 
    ```powershell
-   Import-Module '.\AzureDevOps'
+   Import-Module AzureDevOps
    ```
 
 3. Add connection details
