@@ -109,7 +109,7 @@ PrivateData = @{
         ProjectUri = 'https://github.com/mehmetseckin/azuredevops-powershell/'
 
         # A URL to an icon representing this module.
-        # IconUri = ''
+        IconUri = 'https://github.com/mehmetseckin/azuredevops-powershell/raw/master/Assets/AzureDevOps-icon.png'
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
