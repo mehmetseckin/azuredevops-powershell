@@ -6,7 +6,8 @@
 [![Azure DevOps Tests](https://img.shields.io/azure-devops/tests/azuredevops-powershell/azuredevops-powershell/1.svg?logo=azuredevops)](https://dev.azure.com/azuredevops-powershell/azuredevops-powershell/_build/latest?definitionId=1)
 [![Azure DevOps Coverage](https://img.shields.io/azure-devops/coverage/azuredevops-powershell/azuredevops-powershell/1.svg?logo=azuredevops)](https://dev.azure.com/azuredevops-powershell/azuredevops-powershell/_build/latest?definitionId=1)
 [![Azure DevOps Release - PowerShell Gallery](https://vsrm.dev.azure.com/azuredevops-powershell/_apis/public/Release/badge/4d81da9c-b02f-4f9a-8775-c8444d950246/1/1)](https://dev.azure.com/azuredevops-powershell/azuredevops-powershell/_release/)
-[![AzureDevOps](https://img.shields.io/powershellgallery/v/AzureDevOps.svg)](https://www.powershellgallery.com/packages/AzureDevOps)
+[![AzureDevOps PSGallery version](https://img.shields.io/powershellgallery/v/AzureDevOps.svg)](https://www.powershellgallery.com/packages/AzureDevOps)
+[![AzureDevOps PSGallery downloads](https://img.shields.io/powershellgallery/dt/AzureDevOps.svg?logo=powershell)](https://www.powershellgallery.com/packages/AzureDevOps)
 
 AzureDevOps is a very simple (and primitive) PowerShell module to interact with the Azure DevOps REST API.
 
