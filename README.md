@@ -54,7 +54,14 @@ AzureDevOps is a very simple (and primitive) PowerShell module to interact with 
 
 Documentation for the individual commands is available in the [Docs](https://github.com/mehmetseckin/azuredevops-powershell/blob/master/Docs/AzureDevOps.md) folder.
 
-## Alternatives
+## References
+
+- [Azure DevOps CLI](https://learn.microsoft.com/en-us/azure/devops/cli/?view=azure-devops)
+- [Azure DevOps Services REST API Reference](https://learn.microsoft.com/en-us/rest/api/azure/devops/)
+- [Azure DevOps Developer resources documentation | Microsoft Learn](https://learn.microsoft.com/en-us/azure/devops/dev-resources/?view=azure-devops)
+- [How to use the Azure DevOps REST API with PowerShell | YouTube](https://www.youtube.com/watch?v=ylJmee-4KTo)
+
+## Similar projects
 
 * [vsteam](https://github.com/DarqueWarrior/vsteam) - A comprehensive PowerShell module for accessing TFS and VSTS.
 * [AzureDevOpsPowerShell](https://github.com/rfennell/AzureDevOpsPowershell) - A selection of PowerShell scripts that make use of the Azure DevOps (TFS/VSTS) APIs.
