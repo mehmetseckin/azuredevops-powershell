@@ -1,4 +1,4 @@
-![AzureDevOps icon](./Assets/AzureDevOps-icon.png)
+![AzureDevOps icon](./Assets/azuredevops.png)
 
 # AzureDevOps
 
